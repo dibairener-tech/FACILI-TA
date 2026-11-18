@@ -1,657 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#121212" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Facili-ta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Facili-ta — ferramentas úteis em um só lugar.">
+  <title>Facili-ta | Ferramentas úteis</title>
   <style>
-    :root {
-      --bg-app: #0f1115;
-      --bg-surface: #181b21;
-      --bg-surface-hover: #22262f;
-      --bg-input: #14171c;
-      --primary: #4f8cff;
-      --primary-glow: rgba(79, 140, 255, 0.25);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --border: #2a2f3a;
-      --success: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-app);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 32px;
-    }
-
-    .app-container {
-      width: 100%;
-      max-width: 520px;
-      padding: 0 16px;
-    }
-
-    header {
-      padding: 22px 4px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #4f8cff, #2563eb);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 18px;
-      color: #fff;
-      box-shadow: 0 4px 14px var(--primary-glow);
-    }
-
-    .brand h1 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .brand span {
-      color: var(--primary);
-    }
-
-    .badge-status {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--success);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-
-    .tabs-wrapper {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 4px 0 14px;
-      scrollbar-width: none;
-    }
-
-    .tabs-wrapper::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-btn {
-      flex: 0 0 auto;
-      background: var(--bg-surface);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 14px var(--primary-glow);
-    }
-
-    .card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    }
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      line-height: 1.4;
-    }
-
-    .search-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    input, select {
-      width: 100%;
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 14px 16px;
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--primary);
-    }
-
-    input::placeholder {
-      color: #6b7280;
-    }
-
-    .btn-primary {
-      width: 100%;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 14px 20px;
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: transform 0.1s ease, opacity 0.2s;
-    }
-
-    .btn-primary:active {
-      transform: scale(0.98);
-    }
-
-    .quick-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    .chip {
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 12px;
-      padding: 6px 11px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .chip:hover, .chip:active {
-      border-color: var(--primary);
-      color: var(--text-main);
-    }
-
-    .result-box {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: none;
-    }
-
-    .result-box.visible {
-      display: block;
-      animation: fadeIn 0.25s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .data-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .data-item {
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-    }
-
-    .data-item.full {
-      grid-column: span 2;
-    }
-
-    .data-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .data-value {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-main);
-      word-break: break-word;
-    }
-
-    .data-value.highlight {
-      font-size: 20px;
-      color: var(--primary);
-    }
-
-    .status-pill {
-      display: inline-block;
-      padding: 3px 9px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .status-valid { background: rgba(16, 185, 129, 0.15); color: var(--success); }
-    .status-invalid { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
-
-    .error-msg {
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
-      padding: 12px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .loader {
-      width: 18px;
-      height: 18px;
-      border: 2.5px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
+    :root{--bg:#0b1220;--panel:#111c2e;--panel2:#16243a;--text:#edf3ff;--muted:#9aabc4;--line:#263852;--blue:#4f8cff;--cyan:#39c6d8;--green:#35c98a;--red:#ff6b78}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#142743 0,#0b1220 52%);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+    .wrap{max-width:1120px;margin:auto;padding:34px 20px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}
+    .brand{display:flex;align-items:center;gap:13px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-weight:900;font-size:23px;color:white;box-shadow:0 8px 30px #2875d955}
+    h1{font-size:27px;line-height:1.1;margin:0;letter-spacing:-.7px}.tag{color:var(--muted);font-size:13px;margin-top:4px}
+    .status{border:1px solid var(--line);border-radius:30px;padding:8px 12px;color:var(--muted);font-size:12px;white-space:nowrap}.status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px}
+    .intro{margin:0 0 22px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+    .card{background:linear-gradient(180deg,#142238ed,#101b2ded);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 14px 40px #0002;min-width:0}
+    .cardhead{display:flex;align-items:center;gap:12px;margin-bottom:16px}.ico{width:42px;height:42px;border-radius:13px;background:#203a5e;color:#8fc1ff;display:grid;place-items:center;font-size:21px}
+    h2{font-size:17px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+    label{display:block;color:#c5d2e6;font-size:13px;margin:12px 0 6px}input,select{width:100%;background:#0b1627;border:1px solid #2a3d59;border-radius:10px;padding:12px 13px;color:var(--text);font:inherit;outline:none}
+    input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4f8cff20}.row{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:end}
+    button{border:0;border-radius:10px;padding:12px 17px;background:linear-gradient(135deg,var(--blue),#3972e8);color:white;font-weight:700;font:inherit;cursor:pointer;white-space:nowrap}
+    button:hover{filter:brightness(1.1)}button:disabled{opacity:.55;cursor:wait}.result{margin-top:14px;border:1px solid var(--line);background:#0b1627;border-radius:11px;padding:13px;color:#dce8fa;min-height:48px;overflow-wrap:anywhere}
+    .muted{color:var(--muted)}.big{font-size:25px;font-weight:800;letter-spacing:-.5px}.small{font-size:12px;color:var(--muted)}.error{color:#ff9aa3}.success{color:#7ce2b4}
+    .result:empty{display:none}.result table{width:100%;border-collapse:collapse;font-size:13px}.result td{padding:5px 3px;border-bottom:1px solid #23344c}.result td:last-child{text-align:right;font-weight:650}
+    .footer{color:#7386a2;text-align:center;font-size:12px;margin-top:28px}.wide{grid-column:1/-1}
+    @media(max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding:22px 14px 40px}.card{padding:18px}.top{align-items:flex-start}.status{font-size:11px}}
+    @media(max-width:420px){.row{grid-template-columns:1fr}.row button{width:100%}.status{display:none}}
   </style>
 </head>
 <body>
-
-  <div class="app-container">
-    <header>
-      <div class="brand">
-        <div class="brand-icon">F</div>
-        <h1>Facili<span>-ta</span></h1>
-      </div>
-      <div class="badge-status">APIs Conectadas</div>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand"><div class="logo">F</div><div><h1>Facili-ta</h1><div class="tag">Ferramentas úteis em um só lugar</div></div></div>
+      <div class="status"><i></i> Serviços conectados</div>
     </header>
+    <p class="intro">Escolha uma ferramenta, informe os dados e clique em consultar.</p>
 
-    <div class="tabs-wrapper" id="tabs">
-      <button class="tab-btn active" data-tab="market">📈 Bolsa</button>
-      <button class="tab-btn" data-tab="currency">💱 Câmbio</button>
-      <button class="tab-btn" data-tab="phone">📱 Telefone</button>
-      <button class="tab-btn" data-tab="geo">📍 Endereços</button>
-      <button class="tab-btn" data-tab="pdf">📄 Site p/ PDF</button>
-    </div>
+    <section class="grid">
+      <article class="card">
+        <div class="cardhead"><div class="ico">📈</div><div><h2>Cotação de ações</h2><div class="sub">Consulte o último preço disponível</div></div></div>
+        <label for="symbol">Código da ação</label>
+        <div class="row"><input id="symbol" value="AAPL" placeholder="Ex.: AAPL, MSFT, PETR4"><button id="stockBtn" onclick="getStock()">Consultar</button></div>
+        <div class="result" id="stockResult" aria-live="polite"></div>
+      </article>
 
-    <!-- 1. MARKETSTACK -->
-    <section class="card module-section" id="sec-market">
-      <div class="card-title">📈 Cotação de Ações (Marketstack)</div>
-      <div class="card-desc">Pesquise o código (ticker) de empresas na bolsa para ver fechamento, máxima e volume.</div>
-      <div class="search-group">
-        <input type="text" id="input-market" placeholder="Ex: AAPL, MSFT, PETR4.SA, TSLA" autocomplete="off" />
-        <button class="btn-primary" onclick="searchMarket()">Buscar Cotação</button>
-      </div>
-      <div class="quick-chips">
-        <span class="chip" onclick="setAndRun('input-market', 'AAPL', searchMarket)">AAPL</span>
-        <span class="chip" onclick="setAndRun('input-market', 'NVDA', searchMarket)">NVDA</span>
-        <span class="chip" onclick="setAndRun('input-market', 'TSLA', searchMarket)">TSLA</span>
-        <span class="chip" onclick="setAndRun('input-market', 'AMZN', searchMarket)">AMZN</span>
-      </div>
-      <div class="result-box" id="res-market"></div>
+      <article class="card">
+        <div class="cardhead"><div class="ico">💱</div><div><h2>Conversor de moedas</h2><div class="sub">Taxas de câmbio por moeda-base</div></div></div>
+        <label for="base">Moeda de origem</label>
+        <div class="row"><select id="base"><option>USD</option><option>BRL</option><option>PYG</option><option>EUR</option><option>ARS</option><option>GBP</option></select><button id="ratesBtn" onclick="getRates()">Consultar taxas</button></div>
+        <div class="result" id="ratesResult" aria-live="polite"></div>
+      </article>
+
+      <article class="card">
+        <div class="cardhead"><div class="ico">📱</div><div><h2>Validador de telefone</h2><div class="sub">Verifica formato e país do número</div></div></div>
+        <label for="phone">Número de telefone</label>
+        <input id="phone" placeholder="Ex.: +595 981 123456">
+        <label for="country">País (para números sem código internacional)</label>
+        <select id="country"><option value="PY">Paraguai</option><option value="BR">Brasil</option><option value="US">Estados Unidos</option><option value="AR">Argentina</option></select>
+        <button style="margin-top:12px;width:100%" id="phoneBtn" onclick="checkPhone()">Validar número</button>
+        <div class="result" id="phoneResult" aria-live="polite"></div>
+      </article>
+
+      <article class="card">
+        <div class="cardhead"><div class="ico">📍</div><div><h2>Localizar endereço</h2><div class="sub">Busca endereço, cidade ou ponto de interesse</div></div></div>
+        <label for="place">Local para pesquisar</label>
+        <div class="row"><input id="place" placeholder="Ex.: Ciudad del Este, Paraguay"><button id="geoBtn" onclick="getGeo()">Localizar</button></div>
+        <div class="result" id="geoResult" aria-live="polite"></div>
+      </article>
+
+      <article class="card wide">
+        <div class="cardhead"><div class="ico">📄</div><div><h2>Salvar página em PDF</h2><div class="sub">Abra uma página e use a opção de impressão do navegador</div></div></div>
+        <label for="pdfUrl">Endereço da página (URL)</label>
+        <div class="row"><input id="pdfUrl" type="url" placeholder="https://exemplo.com"><button onclick="openPdfPage()">Abrir página</button></div>
+        <p class="small">Na página aberta, pressione Ctrl+P (ou ⌘+P no Mac) e escolha “Salvar como PDF”. Algumas páginas bloqueiam a impressão ou exigem login.</p>
+      </article>
     </section>
+    <footer class="footer">Facili-ta · As informações de mercado e câmbio podem ter atraso e devem ser conferidas antes de decisões financeiras.</footer>
+  </main>
 
-    <!-- 2. EXCHANGE RATE API (Atualizado com rota compatível com APILayer Free) -->
-    <section class="card module-section" id="sec-currency" style="display:none;">
-      <div class="card-title">💱 Conversor de Moedas</div>
-      <div class="card-desc">Consulte cotações atualizadas e converta valores instantaneamente.</div>
-      <div class="search-group">
-        <input type="number" id="input-amount" value="1" min="0.01" step="any" placeholder="Valor" />
-        <div class="input-row">
-          <select id="select-from">
-            <option value="USD" selected>USD - Dólar</option>
-            <option value="BRL">BRL - Real</option>
-            <option value="PYG">PYG - Guarani</option>
-            <option value="EUR">EUR - Euro</option>
-            <option value="ARS">ARS - Peso Arg.</option>
-          </select>
-          <select id="select-to">
-            <option value="BRL" selected>BRL - Real</option>
-            <option value="PYG">PYG - Guarani</option>
-            <option value="USD">USD - Dólar</option>
-            <option value="EUR">EUR - Euro</option>
-            <option value="ARS">ARS - Peso Arg.</option>
-          </select>
-        </div>
-        <button class="btn-primary" onclick="searchCurrency()">Converter Agora</button>
-      </div>
-      <div class="quick-chips">
-        <span class="chip" onclick="quickCurrency('USD', 'BRL')">Dólar → Real</span>
-        <span class="chip" onclick="quickCurrency('USD', 'PYG')">Dólar → Guarani</span>
-        <span class="chip" onclick="quickCurrency('BRL', 'PYG')">Real → Guarani</span>
-      </div>
-      <div class="result-box" id="res-currency"></div>
-    </section>
+<script>
+  // API já configurada para o seu Cloudflare Worker.
+  const API_BASE = "https://facilita-api.dibairener.workers.dev";
 
-    <!-- 3. NUMVERIFY -->
-    <section class="card module-section" id="sec-phone" style="display:none;">
-      <div class="card-title">📱 Validar Telefone (Numverify)</div>
-      <div class="card-desc">Digite o número com código do país (DDI) para verificar operadora, país e linha.</div>
-      <div class="search-group">
-        <input type="tel" id="input-phone" placeholder="Ex: 5511999999999 ou 595981123456" />
-        <button class="btn-primary" onclick="searchPhone()">Consultar Número</button>
-      </div>
-      <div class="quick-chips">
-        <span class="chip" onclick="document.getElementById('input-phone').value='55'">+55 Brasil</span>
-        <span class="chip" onclick="document.getElementById('input-phone').value='595'">+595 Paraguai</span>
-        <span class="chip" onclick="document.getElementById('input-phone').value='1'">+1 EUA</span>
-      </div>
-      <div class="result-box" id="res-phone"></div>
-    </section>
-
-    <!-- 4. POSITIONSTACK -->
-    <section class="card module-section" id="sec-geo" style="display:none;">
-      <div class="card-title">📍 Busca de Endereços & GPS</div>
-      <div class="card-desc">Pesquise qualquer rua, cidade ou ponto de referência para obter coordenadas e região.</div>
-      <div class="search-group">
-        <input type="text" id="input-geo" placeholder="Ex: Ciudad del Este, Av. Paulista 1000" />
-        <button class="btn-primary" onclick="searchGeo()">Localizar</button>
-      </div>
-      <div class="quick-chips">
-        <span class="chip" onclick="setAndRun('input-geo', 'Ciudad del Este, Paraguay', searchGeo)">Ciudad del Este</span>
-        <span class="chip" onclick="setAndRun('input-geo', 'Foz do Iguaçu, PR', searchGeo)">Foz do Iguaçu</span>
-        <span class="chip" onclick="setAndRun('input-geo', 'Barbacena, MG', searchGeo)">Barbacena</span>
-      </div>
-      <div class="result-box" id="res-geo"></div>
-    </section>
-
-    <!-- 5. PDFLAYER -->
-    <section class="card module-section" id="sec-pdf" style="display:none;">
-      <div class="card-title">📄 Converter Site em PDF</div>
-      <div class="card-desc">Cole o link completo de qualquer página web para gerar e baixar um arquivo PDF.</div>
-      <div class="search-group">
-        <input type="url" id="input-pdf" placeholder="https://exemplo.com" />
-        <button class="btn-primary" onclick="generatePdf()">Gerar PDF da Página</button>
-      </div>
-      <div class="result-box" id="res-pdf"></div>
-    </section>
-  </div>
-
-  <script>
-    const KEYS = {
-      marketstack: 'aee62f074a0cc4fd7519f1549995e0ed',
-      exchangerate: 'aee62f074a0cc4fd7519f1549995e0ed',
-      numverify: 'aee62f074a0cc4fd7519f1549995e0ed',
-      positionstack: 'aee62f074a0cc4fd7519f1549995e0ed',
-      pdflayer: 'aee62f074a0cc4fd7519f1549995e0ed'
-    };
-
-    const tabs = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.module-section');
-
-    tabs.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        btn.classList.add('active');
-        const target = btn.getAttribute('data-tab');
-        sections.forEach(sec => {
-          sec.style.display = sec.id === `sec-${target}` ? 'block' : 'none';
-        });
-      });
-    });
-
-    function setAndRun(inputId, val, fn) {
-      document.getElementById(inputId).value = val;
-      fn();
-    }
-
-    function quickCurrency(from, to) {
-      document.getElementById('select-from').value = from;
-      document.getElementById('select-to').value = to;
-      searchCurrency();
-    }
-
-    function showLoading(boxId) {
-      const box = document.getElementById(boxId);
-      box.classList.add('visible');
-      box.innerHTML = `<div style="display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:14px;"><div class="loader"></div> Consultando API...</div>`;
-    }
-
-    function showError(boxId, message) {
-      const box = document.getElementById(boxId);
-      box.classList.add('visible');
-      box.innerHTML = `<div class="error-msg">⚠️ ${message}</div>`;
-    }
-
-    async function smartFetch(httpUrl) {
-      try {
-        const httpsUrl = httpUrl.replace(/^http:\/\//i, 'https://');
-        const resHttps = await fetch(httpsUrl);
-        if (resHttps.ok) return await resHttps.json();
-      } catch (e) {}
-
-      try {
-        const resHttp = await fetch(httpUrl);
-        if (resHttp.ok) return await resHttp.json();
-      } catch (e) {}
-
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(httpUrl)}`;
-      const resProxy = await fetch(proxyUrl);
-      if (!resProxy.ok) throw new Error('Falha na comunicação.');
-      return await resProxy.json();
-    }
-
-    async function searchMarket() {
-      const symbol = document.getElementById('input-market').value.trim().toUpperCase();
-      if (!symbol) return showError('res-market', 'Digite o símbolo de uma ação (ex: AAPL).');
-
-      showLoading('res-market');
-      try {
-        const url = `http://api.marketstack.com/v1/eod/latest?access_key=${KEYS.marketstack}&symbols=${encodeURIComponent(symbol)}`;
-        const data = await smartFetch(url);
-
-        if (data.error) return showError('res-market', data.error.message || 'Erro retornado pela Marketstack.');
-        if (!data.data || data.data.length === 0) return showError('res-market', `Nenhum dado encontrado para "${symbol}".`);
-
-        const item = data.data[0];
-        document.getElementById('res-market').innerHTML = `
-          <div class="data-grid">
-            <div class="data-item"><div class="data-label">Ativo</div><div class="data-value highlight">${item.symbol}</div></div>
-            <div class="data-item"><div class="data-label">Fechamento</div><div class="data-value highlight">$ ${Number(item.close).toFixed(2)}</div></div>
-            <div class="data-item"><div class="data-label">Abertura</div><div class="data-value">$ ${Number(item.open).toFixed(2)}</div></div>
-            <div class="data-item"><div class="data-label">Máx / Mín</div><div class="data-value">$ ${Number(item.high).toFixed(2)} / $ ${Number(item.low).toFixed(2)}</div></div>
-            <div class="data-item"><div class="data-label">Volume</div><div class="data-value">${Number(item.volume).toLocaleString('pt-BR')}</div></div>
-            <div class="data-item"><div class="data-label">Data</div><div class="data-value">${item.date ? item.date.split('T')[0] : 'N/D'}</div></div>
-          </div>
-        `;
-      } catch (err) {
-        showError('res-market', 'Não foi possível buscar a cotação.');
-      }
-    }
-
-    // 2. EXCHANGE RATE API (Corrigido para o endpoint /convert padrão da APILayer)
-    async function searchCurrency() {
-      const amount = parseFloat(document.getElementById('input-amount').value) || 1;
-      const from = document.getElementById('select-from').value;
-      const to = document.getElementById('select-to').value;
-
-      showLoading('res-currency');
-      try {
-        const url = `http://api.exchangerate.host/convert?access_key=${KEYS.exchangerate}&from=${from}&to=${to}&amount=${amount}`;
-        const data = await smartFetch(url);
-
-        if (data && data.success) {
-          const result = data.result;
-          const rate = data.info ? data.info.quote : (result / amount);
-          return renderCurrency(amount, from, to, rate, result);
-        }
-
-        // Rota alternativa de cotações gerais caso o convert precise de parâmetros diferentes
-        const liveUrl = `http://api.exchangerate.host/live?access_key=${KEYS.exchangerate}&source=${from}&currencies=${to}`;
-        const liveData = await smartFetch(liveUrl);
-        if (liveData && liveData.success && liveData.quotes) {
-          const rate = liveData.quotes[`${from}${to}`];
-          return renderCurrency(amount, from, to, rate, amount * rate);
-        }
-
-        showError('res-currency', (data.error && data.error.info) || 'Erro ao consultar taxas de câmbio.');
-      } catch (err) {
-        showError('res-currency', 'Erro de conexão com o conversor de moedas.');
-      }
-    }
-
-    function renderCurrency(amount, from, to, rate, converted) {
-      document.getElementById('res-currency').innerHTML = `
-        <div class="data-grid">
-          <div class="data-item full">
-            <div class="data-label">${amount} ${from} equivale a</div>
-            <div class="data-value highlight">${Number(converted).toLocaleString('pt-BR', { maximumFractionDigits: 4 })} ${to}</div>
-          </div>
-          <div class="data-item full">
-            <div class="data-label">Taxa de Câmbio</div>
-            <div class="data-value">1 ${from} = ${Number(rate).toLocaleString('pt-BR', { maximumFractionDigits: 6 })} ${to}</div>
-          </div>
-        </div>
-      `;
-    }
-
-    async function searchPhone() {
-      const phone = document.getElementById('input-phone').value.replace(/\D/g, '');
-      if (!phone) return showError('res-phone', 'Digite um número com DDI.');
-
-      showLoading('res-phone');
-      try {
-        const url = `http://apilayer.net/api/validate?access_key=${KEYS.numverify}&number=${phone}`;
-        const data = await smartFetch(url);
-
-        if (data.error) return showError('res-phone', data.error.info || 'Erro na consulta.');
-
-        document.getElementById('res-phone').innerHTML = `
-          <div class="data-grid">
-            <div class="data-item"><div class="data-label">Status</div><div class="data-value"><span class="status-pill ${data.valid ? 'status-valid' : 'status-invalid'}">${data.valid ? '✓ Válido' : '✕ Inválido'}</span></div></div>
-            <div class="data-item"><div class="data-label">Formato</div><div class="data-value">${data.international_format || phone}</div></div>
-            <div class="data-item"><div class="data-label">País</div><div class="data-value">${data.country_name || 'N/D'}</div></div>
-            <div class="data-item"><div class="data-label">Operadora</div><div class="data-value">${data.carrier || 'N/D'}</div></div>
-            <div class="data-item"><div class="data-label">Tipo</div><div class="data-value" style="text-transform:capitalize;">${data.line_type || 'N/D'}</div></div>
-            <div class="data-item"><div class="data-label">Região</div><div class="data-value">${data.location || 'N/D'}</div></div>
-          </div>
-        `;
-      } catch (err) {
-        showError('res-phone', 'Falha ao validar.');
-      }
-    }
-
-    async function searchGeo() {
-      const query = document.getElementById('input-geo').value.trim();
-      if (!query) return showError('res-geo', 'Digite um local.');
-
-      showLoading('res-geo');
-      try {
-        const url = `http://api.positionstack.com/v1/forward?access_key=${KEYS.positionstack}&query=${encodeURIComponent(query)}&limit=1`;
-        const data = await smartFetch(url);
-
-        if (data.error) return showError('res-geo', data.error.message || 'Erro ao buscar.');
-        if (!data.data || data.data.length === 0) return showError('res-geo', 'Local não encontrado.');
-
-        const loc = data.data[0];
-        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${loc.latitude},${loc.longitude}`;
-
-        document.getElementById('res-geo').innerHTML = `
-          <div class="data-grid">
-            <div class="data-item full"><div class="data-label">Endereço</div><div class="data-value">${loc.label || loc.name}</div></div>
-            <div class="data-item"><div class="data-label">Latitude</div><div class="data-value">${loc.latitude}</div></div>
-            <div class="data-item"><div class="data-label">Longitude</div><div class="data-value">${loc.longitude}</div></div>
-            <div class="data-item"><div class="data-label">País</div><div class="data-value">${loc.country || 'N/D'}</div></div>
-            <div class="data-item full"><a href="${mapsUrl}" target="_blank" style="display:block;text-align:center;background:var(--bg-surface-hover);color:var(--primary);text-decoration:none;padding:10px;border-radius:8px;font-weight:600;font-size:13px;">🗺️ Abrir no Google Maps</a></div>
-          </div>
-        `;
-      } catch (err) {
-        showError('res-geo', 'Erro de geolocalização.');
-      }
-    }
-
-    function generatePdf() {
-      let targetUrl = document.getElementById('input-pdf').value.trim();
-      if (!targetUrl) return showError('res-pdf', 'Digite uma URL.');
-      if (!/^https?:\/\//i.test(targetUrl)) targetUrl = 'https://' + targetUrl;
-
-      const apiUrl = `http://api.pdflayer.com/api/convert?access_key=${KEYS.pdflayer}&document_url=${encodeURIComponent(targetUrl)}`;
-      const box = document.getElementById('res-pdf');
-      box.classList.add('visible');
-      box.innerHTML = `
-        <div class="data-grid">
-          <div class="data-item full">
-            <div class="data-label">Download</div>
-            <div class="data-value" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">${targetUrl}</div>
-            <a href="${apiUrl}" target="_blank" rel="noopener" style="display:block;text-align:center;background:var(--success);color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:600;font-size:14px;">⬇️ Baixar PDF Gerado</a>
-          </div>
-        </div>
-      `;
-    }
-
-    document.getElementById('input-market').addEventListener('keypress', e => { if (e.key === 'Enter') searchMarket(); });
-    document.getElementById('input-phone').addEventListener('keypress', e => { if (e.key === 'Enter') searchPhone(); });
-    document.getElementById('input-geo').addEventListener('keypress', e => { if (e.key === 'Enter') searchGeo(); });
-    document.getElementById('input-pdf').addEventListener('keypress', e => { if (e.key === 'Enter') generatePdf(); });
-  </script>
+  const el = id => document.getElementById(id);
+  function show(id, html, cls="") { el(id).innerHTML = html; if(cls) el(id).className = "result " + cls; }
+  function busy(button, state, label="Consultando...") {
+    const b=el(button); if(state){b.dataset.old=b.textContent;b.textContent=label;b.disabled=true;}
+    else{b.textContent=b.dataset.old||"Consultar";b.disabled=false;}
+  }
+  async function api(path) {
+    const response = await fetch(API_BASE + path);
+    const data = await response.json().catch(()=>({error:"Resposta inválida do servidor."}));
+    if(!response.ok || data.error) throw new Error(data.error || "Não foi possível concluir a consulta.");
+    return data;
+  }
+  function money(value,currency="USD") {
+    try{return new Intl.NumberFormat("pt-BR",{style:"currency",currency}).format(value);}
+    catch{return Number(value).toFixed(2)+" "+currency;}
+  }
+  async function getStock(){
+    const symbol=el("symbol").value.trim().toUpperCase();
+    if(!symbol){show("stockResult",'<span class="error">Informe o código da ação.</span>');return;}
+    busy("stockBtn",true); show("stockResult","Buscando cotação...");
+    try{
+      const d=await api("/api/stock?symbol="+encodeURIComponent(symbol));
+      show("stockResult",`<div class="small">${d.symbol} · ${d.date ? new Date(d.date).toLocaleString("pt-BR") : "Último registro"}</div><div class="big">${money(d.close,d.currency||"USD")}</div><table><tr><td>Abertura</td><td>${money(d.open,d.currency||"USD")}</td></tr><tr><td>Máxima</td><td>${money(d.high,d.currency||"USD")}</td></tr><tr><td>Mínima</td><td>${money(d.low,d.currency||"USD")}</td></tr><tr><td>Volume</td><td>${Number(d.volume||0).toLocaleString("pt-BR")}</td></tr></table><div class="small">Dados fornecidos pelo Yahoo Finance; podem ter atraso.</div>`);
+    }catch(e){show("stockResult",'<span class="error">'+escapeHtml(e.message)+'</span>');}
+    finally{busy("stockBtn",false);}
+  }
+  async function getRates(){
+    const base=el("base").value; busy("ratesBtn",true,"Carregando...");
+    show("ratesResult","Consultando taxas...");
+    try{
+      const d=await api("/api/rates?base="+encodeURIComponent(base));
+      const keys=["BRL","PYG","USD","EUR","ARS","GBP"];
+      const rows=keys.filter(k=>d.rates && d.rates[k]!=null).map(k=>`<tr><td>1 ${base} = ${k}</td><td>${Number(d.rates[k]).toLocaleString("pt-BR",{maximumFractionDigits:4})}</td></tr>`).join("");
+      show("ratesResult",`<div class="small">Base: ${d.base||base} · Data: ${d.date||"disponível na fonte"}</div><table>${rows}</table><div class="small">Fonte: ExchangeRate-API (taxas indicativas).</div>`);
+    }catch(e){show("ratesResult",'<span class="error">'+escapeHtml(e.message)+'</span>');}
+    finally{busy("ratesBtn",false);}
+  }
+  async function getGeo(){
+    const q=el("place").value.trim(); if(!q){show("geoResult",'<span class="error">Digite um endereço ou local.</span>');return;}
+    busy("geoBtn",true,"Buscando..."); show("geoResult","Procurando endereço...");
+    try{
+      const d=await api("/api/geocode?q="+encodeURIComponent(q)); const r=d.result;
+      if(!r) throw new Error("Nenhum resultado encontrado.");
+      const lat=Number(r.lat),lon=Number(r.lon);
+      show("geoResult",`<strong>${escapeHtml(r.display_name||"Local encontrado")}</strong><table><tr><td>Latitude</td><td>${lat}</td></tr><tr><td>Longitude</td><td>${lon}</td></tr><tr><td>País</td><td>${escapeHtml(r.country||"—")}</td></tr></table><a target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${encodeURIComponent(lat)}&mlon=${encodeURIComponent(lon)}#map=15/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}">Ver no mapa</a><div class="small">Mapa e dados © OpenStreetMap contributors.</div>`);
+    }catch(e){show("geoResult",'<span class="error">'+escapeHtml(e.message)+'</span>');}
+    finally{busy("geoBtn",false);}
+  }
+  async function checkPhone(){
+    const phone=el("phone").value.trim(); if(!phone){show("phoneResult",'<span class="error">Informe um número de telefone.</span>');return;}
+    busy("phoneBtn",true,"Validando...");
+    try{
+      const mod=await import("https://cdn.jsdelivr.net/npm/libphonenumber-js@1.11.20/+esm");
+      const parsed=mod.parsePhoneNumber(phone,el("country").value);
+      if(!parsed){show("phoneResult",'<span class="error">Não foi possível interpretar o número.</span>');return;}
+      show("phoneResult",parsed.isValid()?`<span class="success">Número com formato válido.</span><table><tr><td>Formato internacional</td><td>${escapeHtml(parsed.formatInternational())}</td></tr><tr><td>País</td><td>${escapeHtml(parsed.country||"Não identificado")}</td></tr><tr><td>Tipo</td><td>${escapeHtml(parsed.getType()||"Não identificado")}</td></tr></table><div class="small">A validação verifica o formato; não confirma se a linha está ativa.</div>`:'<span class="error">Número inválido ou com formato incorreto.</span>');
+    }catch(e){show("phoneResult",'<span class="error">'+escapeHtml(e.message||"Falha ao validar número.")+'</span>');}
+    finally{busy("phoneBtn",false);}
+  }
+  function openPdfPage(){
+    let url=el("pdfUrl").value.trim(); if(!url){show("pdfResult","");return;}
+    if(!/^https?:\/\//i.test(url)) url="https://"+url;
+    try{const parsed=new URL(url); if(!["http:","https:"].includes(parsed.protocol)) throw new Error(); window.open(parsed.href,"_blank","noopener");}
+    catch{alert("Informe uma URL válida.");}
+  }
+  function escapeHtml(value){
+    return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  document.addEventListener("keydown",e=>{if(e.key==="Enter"){const id=e.target.id;if(id==="symbol")getStock();if(id==="place")getGeo();}});
+</script>
 </body>
 </html>
