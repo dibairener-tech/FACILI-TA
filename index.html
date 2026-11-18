@@ -101,7 +101,6 @@
       border: 1px solid rgba(16, 185, 129, 0.25);
     }
 
-    /* Seletor de Módulos (Abas estilo Android Pill) */
     .tabs-wrapper {
       display: flex;
       gap: 8px;
@@ -137,7 +136,6 @@
       box-shadow: 0 4px 14px var(--primary-glow);
     }
 
-    /* Cartão Principal */
     .card {
       background: var(--bg-surface);
       border: 1px solid var(--border);
@@ -163,7 +161,6 @@
       line-height: 1.4;
     }
 
-    /* Caixa de Busca & Inputs */
     .search-group {
       display: flex;
       flex-direction: column;
@@ -217,12 +214,6 @@
       transform: scale(0.98);
     }
 
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Chips de Atalho Rápido */
     .quick-chips {
       display: flex;
       flex-wrap: wrap;
@@ -246,7 +237,6 @@
       color: var(--text-main);
     }
 
-    /* Área de Resultados */
     .result-box {
       margin-top: 18px;
       padding-top: 18px;
@@ -309,15 +299,8 @@
       font-weight: 600;
     }
 
-    .status-valid {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--success);
-    }
-
-    .status-invalid {
-      background: rgba(239, 68, 68, 0.15);
-      color: var(--danger);
-    }
+    .status-valid { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .status-invalid { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
 
     .error-msg {
       background: rgba(239, 68, 68, 0.12);
@@ -338,9 +321,7 @@
       animation: spin 0.7s linear infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -354,7 +335,6 @@
       <div class="badge-status">APIs Conectadas</div>
     </header>
 
-    <!-- Navegação entre as 5 APIs -->
     <div class="tabs-wrapper" id="tabs">
       <button class="tab-btn active" data-tab="market">📈 Bolsa</button>
       <button class="tab-btn" data-tab="currency">💱 Câmbio</button>
@@ -372,15 +352,15 @@
         <button class="btn-primary" onclick="searchMarket()">Buscar Cotação</button>
       </div>
       <div class="quick-chips">
-        <span class="chip" onclick="setAndRun('input-market', 'AAPL', searchMarket)">AAPL (Apple)</span>
-        <span class="chip" onclick="setAndRun('input-market', 'NVDA', searchMarket)">NVDA (Nvidia)</span>
-        <span class="chip" onclick="setAndRun('input-market', 'TSLA', searchMarket)">TSLA (Tesla)</span>
-        <span class="chip" onclick="setAndRun('input-market', 'AMZN', searchMarket)">AMZN (Amazon)</span>
+        <span class="chip" onclick="setAndRun('input-market', 'AAPL', searchMarket)">AAPL</span>
+        <span class="chip" onclick="setAndRun('input-market', 'NVDA', searchMarket)">NVDA</span>
+        <span class="chip" onclick="setAndRun('input-market', 'TSLA', searchMarket)">TSLA</span>
+        <span class="chip" onclick="setAndRun('input-market', 'AMZN', searchMarket)">AMZN</span>
       </div>
       <div class="result-box" id="res-market"></div>
     </section>
 
-    <!-- 2. EXCHANGE RATE API -->
+    <!-- 2. EXCHANGE RATE API (Atualizado com rota compatível com APILayer Free) -->
     <section class="card module-section" id="sec-currency" style="display:none;">
       <div class="card-title">💱 Conversor de Moedas</div>
       <div class="card-desc">Consulte cotações atualizadas e converta valores instantaneamente.</div>
@@ -457,7 +437,6 @@
   </div>
 
   <script>
-    // Chaves de API configuradas
     const KEYS = {
       marketstack: 'aee62f074a0cc4fd7519f1549995e0ed',
       exchangerate: 'aee62f074a0cc4fd7519f1549995e0ed',
@@ -466,7 +445,6 @@
       pdflayer: 'aee62f074a0cc4fd7519f1549995e0ed'
     };
 
-    // Navegação entre abas
     const tabs = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.module-section');
 
@@ -504,29 +482,24 @@
       box.innerHTML = `<div class="error-msg">⚠️ ${message}</div>`;
     }
 
-    // Função inteligente para contornar bloqueio HTTP/CORS em hospedagens HTTPS (GitHub Pages)
     async function smartFetch(httpUrl) {
       try {
-        // 1ª tentativa: HTTPS direto (se suportado pelo plano)
         const httpsUrl = httpUrl.replace(/^http:\/\//i, 'https://');
         const resHttps = await fetch(httpsUrl);
         if (resHttps.ok) return await resHttps.json();
       } catch (e) {}
 
       try {
-        // 2ª tentativa: HTTP direto (caso aberto localmente)
         const resHttp = await fetch(httpUrl);
         if (resHttp.ok) return await resHttp.json();
       } catch (e) {}
 
-      // 3ª tentativa: Proxy CORS seguro para planos gratuitos HTTP
       const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(httpUrl)}`;
       const resProxy = await fetch(proxyUrl);
-      if (!resProxy.ok) throw new Error('Falha na comunicação com o servidor.');
+      if (!resProxy.ok) throw new Error('Falha na comunicação.');
       return await resProxy.json();
     }
 
-    // 1. MARKETSTACK
     async function searchMarket() {
       const symbol = document.getElementById('input-market').value.trim().toUpperCase();
       if (!symbol) return showError('res-market', 'Digite o símbolo de uma ação (ex: AAPL).');
@@ -536,49 +509,26 @@
         const url = `http://api.marketstack.com/v1/eod/latest?access_key=${KEYS.marketstack}&symbols=${encodeURIComponent(symbol)}`;
         const data = await smartFetch(url);
 
-        if (data.error) {
-          return showError('res-market', data.error.message || 'Erro retornado pela Marketstack.');
-        }
-        if (!data.data || data.data.length === 0) {
-          return showError('res-market', `Nenhum dado encontrado para "${symbol}".`);
-        }
+        if (data.error) return showError('res-market', data.error.message || 'Erro retornado pela Marketstack.');
+        if (!data.data || data.data.length === 0) return showError('res-market', `Nenhum dado encontrado para "${symbol}".`);
 
         const item = data.data[0];
-        const dateStr = item.date ? item.date.split('T')[0] : 'N/D';
         document.getElementById('res-market').innerHTML = `
           <div class="data-grid">
-            <div class="data-item">
-              <div class="data-label">Ativo</div>
-              <div class="data-value highlight">${item.symbol}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Fechamento</div>
-              <div class="data-value highlight">$ ${Number(item.close).toFixed(2)}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Abertura</div>
-              <div class="data-value">$ ${Number(item.open).toFixed(2)}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Máxima / Mínima</div>
-              <div class="data-value">$ ${Number(item.high).toFixed(2)} / $ ${Number(item.low).toFixed(2)}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Volume</div>
-              <div class="data-value">${Number(item.volume).toLocaleString('pt-BR')}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Data Pregão</div>
-              <div class="data-value">${dateStr}</div>
-            </div>
+            <div class="data-item"><div class="data-label">Ativo</div><div class="data-value highlight">${item.symbol}</div></div>
+            <div class="data-item"><div class="data-label">Fechamento</div><div class="data-value highlight">$ ${Number(item.close).toFixed(2)}</div></div>
+            <div class="data-item"><div class="data-label">Abertura</div><div class="data-value">$ ${Number(item.open).toFixed(2)}</div></div>
+            <div class="data-item"><div class="data-label">Máx / Mín</div><div class="data-value">$ ${Number(item.high).toFixed(2)} / $ ${Number(item.low).toFixed(2)}</div></div>
+            <div class="data-item"><div class="data-label">Volume</div><div class="data-value">${Number(item.volume).toLocaleString('pt-BR')}</div></div>
+            <div class="data-item"><div class="data-label">Data</div><div class="data-value">${item.date ? item.date.split('T')[0] : 'N/D'}</div></div>
           </div>
         `;
       } catch (err) {
-        showError('res-market', 'Não foi possível buscar a cotação. Verifique sua conexão ou chave.');
+        showError('res-market', 'Não foi possível buscar a cotação.');
       }
     }
 
-    // 2. EXCHANGE RATE API
+    // 2. EXCHANGE RATE API (Corrigido para o endpoint /convert padrão da APILayer)
     async function searchCurrency() {
       const amount = parseFloat(document.getElementById('input-amount').value) || 1;
       const from = document.getElementById('select-from').value;
@@ -586,27 +536,26 @@
 
       showLoading('res-currency');
       try {
-        // Suporte tanto para Exchangerate.host (APILayer) quanto ExchangeRate-API v6
-        let url = `http://api.exchangerate.host/live?access_key=${KEYS.exchangerate}&source=${from}&currencies=${to}`;
-        let data = await smartFetch(url);
+        const url = `http://api.exchangerate.host/convert?access_key=${KEYS.exchangerate}&from=${from}&to=${to}&amount=${amount}`;
+        const data = await smartFetch(url);
 
-        if (data && data.success && data.quotes) {
-          const quoteKey = `${from}${to}`;
-          const rate = data.quotes[quoteKey];
-          const converted = amount * rate;
-          return renderCurrency(amount, from, to, rate, converted);
+        if (data && data.success) {
+          const result = data.result;
+          const rate = data.info ? data.info.quote : (result / amount);
+          return renderCurrency(amount, from, to, rate, result);
         }
 
-        // Fallback caso a chave seja da ExchangeRate-API.com v6
-        const v6Url = `https://v6.exchangerate-api.com/v6/${KEYS.exchangerate}/pair/${from}/${to}/${amount}`;
-        const v6Data = await fetch(v6Url).then(r => r.json());
-        if (v6Data && v6Data.result === 'success') {
-          return renderCurrency(amount, from, to, v6Data.conversion_rate, v6Data.conversion_result);
+        // Rota alternativa de cotações gerais caso o convert precise de parâmetros diferentes
+        const liveUrl = `http://api.exchangerate.host/live?access_key=${KEYS.exchangerate}&source=${from}&currencies=${to}`;
+        const liveData = await smartFetch(liveUrl);
+        if (liveData && liveData.success && liveData.quotes) {
+          const rate = liveData.quotes[`${from}${to}`];
+          return renderCurrency(amount, from, to, rate, amount * rate);
         }
 
-        showError('res-currency', (data.error && data.error.info) || 'Chave inválida ou limite atingido na API de câmbio.');
+        showError('res-currency', (data.error && data.error.info) || 'Erro ao consultar taxas de câmbio.');
       } catch (err) {
-        showError('res-currency', 'Erro ao consultar taxa de câmbio.');
+        showError('res-currency', 'Erro de conexão com o conversor de moedas.');
       }
     }
 
@@ -615,128 +564,75 @@
         <div class="data-grid">
           <div class="data-item full">
             <div class="data-label">${amount} ${from} equivale a</div>
-            <div class="data-value highlight">${converted.toLocaleString('pt-BR', { maximumFractionDigits: 4 })} ${to}</div>
+            <div class="data-value highlight">${Number(converted).toLocaleString('pt-BR', { maximumFractionDigits: 4 })} ${to}</div>
           </div>
           <div class="data-item full">
-            <div class="data-label">Taxa de Câmbio Unitária</div>
+            <div class="data-label">Taxa de Câmbio</div>
             <div class="data-value">1 ${from} = ${Number(rate).toLocaleString('pt-BR', { maximumFractionDigits: 6 })} ${to}</div>
           </div>
         </div>
       `;
     }
 
-    // 3. NUMVERIFY
     async function searchPhone() {
       const phone = document.getElementById('input-phone').value.replace(/\D/g, '');
-      if (!phone) return showError('res-phone', 'Digite um número de telefone com DDI.');
+      if (!phone) return showError('res-phone', 'Digite um número com DDI.');
 
       showLoading('res-phone');
       try {
         const url = `http://apilayer.net/api/validate?access_key=${KEYS.numverify}&number=${phone}`;
         const data = await smartFetch(url);
 
-        if (data.error) {
-          return showError('res-phone', data.error.info || 'Erro na consulta do telefone.');
-        }
+        if (data.error) return showError('res-phone', data.error.info || 'Erro na consulta.');
 
         document.getElementById('res-phone').innerHTML = `
           <div class="data-grid">
-            <div class="data-item">
-              <div class="data-label">Status</div>
-              <div class="data-value">
-                <span class="status-pill ${data.valid ? 'status-valid' : 'status-invalid'}">
-                  ${data.valid ? '✓ Número Válido' : '✕ Inválido'}
-                </span>
-              </div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Formato Internacional</div>
-              <div class="data-value">${data.international_format || phone}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">País</div>
-              <div class="data-value">${data.country_name || 'N/D'} (${data.country_code || '-'})</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Operadora</div>
-              <div class="data-value">${data.carrier || 'Não informada'}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Tipo de Linha</div>
-              <div class="data-value" style="text-transform:capitalize;">${data.line_type || 'N/D'}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Região / Cidade</div>
-              <div class="data-value">${data.location || 'N/D'}</div>
-            </div>
+            <div class="data-item"><div class="data-label">Status</div><div class="data-value"><span class="status-pill ${data.valid ? 'status-valid' : 'status-invalid'}">${data.valid ? '✓ Válido' : '✕ Inválido'}</span></div></div>
+            <div class="data-item"><div class="data-label">Formato</div><div class="data-value">${data.international_format || phone}</div></div>
+            <div class="data-item"><div class="data-label">País</div><div class="data-value">${data.country_name || 'N/D'}</div></div>
+            <div class="data-item"><div class="data-label">Operadora</div><div class="data-value">${data.carrier || 'N/D'}</div></div>
+            <div class="data-item"><div class="data-label">Tipo</div><div class="data-value" style="text-transform:capitalize;">${data.line_type || 'N/D'}</div></div>
+            <div class="data-item"><div class="data-label">Região</div><div class="data-value">${data.location || 'N/D'}</div></div>
           </div>
         `;
       } catch (err) {
-        showError('res-phone', 'Falha ao validar número.');
+        showError('res-phone', 'Falha ao validar.');
       }
     }
 
-    // 4. POSITIONSTACK
     async function searchGeo() {
       const query = document.getElementById('input-geo').value.trim();
-      if (!query) return showError('res-geo', 'Digite um endereço ou cidade para pesquisar.');
+      if (!query) return showError('res-geo', 'Digite um local.');
 
       showLoading('res-geo');
       try {
         const url = `http://api.positionstack.com/v1/forward?access_key=${KEYS.positionstack}&query=${encodeURIComponent(query)}&limit=1`;
         const data = await smartFetch(url);
 
-        if (data.error) {
-          return showError('res-geo', data.error.message || 'Erro ao buscar endereço.');
-        }
-        if (!data.data || data.data.length === 0) {
-          return showError('res-geo', 'Nenhum local encontrado com essa descrição.');
-        }
+        if (data.error) return showError('res-geo', data.error.message || 'Erro ao buscar.');
+        if (!data.data || data.data.length === 0) return showError('res-geo', 'Local não encontrado.');
 
         const loc = data.data[0];
         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${loc.latitude},${loc.longitude}`;
 
         document.getElementById('res-geo').innerHTML = `
           <div class="data-grid">
-            <div class="data-item full">
-              <div class="data-label">Endereço Encontrado</div>
-              <div class="data-value">${loc.label || loc.name}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Latitude</div>
-              <div class="data-value">${loc.latitude}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Longitude</div>
-              <div class="data-value">${loc.longitude}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">Cidade / Estado</div>
-              <div class="data-value">${loc.locality || loc.region || 'N/D'}</div>
-            </div>
-            <div class="data-item">
-              <div class="data-label">País</div>
-              <div class="data-value">${loc.country || 'N/D'}</div>
-            </div>
-            <div class="data-item full">
-              <a href="${mapsUrl}" target="_blank" style="display:block;text-align:center;background:var(--bg-surface-hover);color:var(--primary);text-decoration:none;padding:10px;border-radius:8px;font-weight:600;font-size:13px;">
-                🗺️ Abrir no Google Maps
-              </a>
-            </div>
+            <div class="data-item full"><div class="data-label">Endereço</div><div class="data-value">${loc.label || loc.name}</div></div>
+            <div class="data-item"><div class="data-label">Latitude</div><div class="data-value">${loc.latitude}</div></div>
+            <div class="data-item"><div class="data-label">Longitude</div><div class="data-value">${loc.longitude}</div></div>
+            <div class="data-item"><div class="data-label">País</div><div class="data-value">${loc.country || 'N/D'}</div></div>
+            <div class="data-item full"><a href="${mapsUrl}" target="_blank" style="display:block;text-align:center;background:var(--bg-surface-hover);color:var(--primary);text-decoration:none;padding:10px;border-radius:8px;font-weight:600;font-size:13px;">🗺️ Abrir no Google Maps</a></div>
           </div>
         `;
       } catch (err) {
-        showError('res-geo', 'Erro ao consultar geolocalização.');
+        showError('res-geo', 'Erro de geolocalização.');
       }
     }
 
-    // 5. PDFLAYER
     function generatePdf() {
       let targetUrl = document.getElementById('input-pdf').value.trim();
-      if (!targetUrl) return showError('res-pdf', 'Cole a URL de um site (ex: https://wikipedia.org).');
-      if (!/^https?:\/\//i.test(targetUrl)) {
-        targetUrl = 'https://' + targetUrl;
-      }
+      if (!targetUrl) return showError('res-pdf', 'Digite uma URL.');
+      if (!/^https?:\/\//i.test(targetUrl)) targetUrl = 'https://' + targetUrl;
 
       const apiUrl = `http://api.pdflayer.com/api/convert?access_key=${KEYS.pdflayer}&document_url=${encodeURIComponent(targetUrl)}`;
       const box = document.getElementById('res-pdf');
@@ -744,17 +640,14 @@
       box.innerHTML = `
         <div class="data-grid">
           <div class="data-item full">
-            <div class="data-label">Link Pronto para Download</div>
+            <div class="data-label">Download</div>
             <div class="data-value" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">${targetUrl}</div>
-            <a href="${apiUrl}" target="_blank" rel="noopener" style="display:block;text-align:center;background:var(--success);color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:600;font-size:14px;">
-              ⬇️ Baixar PDF Gerado
-            </a>
+            <a href="${apiUrl}" target="_blank" rel="noopener" style="display:block;text-align:center;background:var(--success);color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:600;font-size:14px;">⬇️ Baixar PDF Gerado</a>
           </div>
         </div>
       `;
     }
 
-    // Permitir pesquisar apertando "Enter" no teclado do Android
     document.getElementById('input-market').addEventListener('keypress', e => { if (e.key === 'Enter') searchMarket(); });
     document.getElementById('input-phone').addEventListener('keypress', e => { if (e.key === 'Enter') searchPhone(); });
     document.getElementById('input-geo').addEventListener('keypress', e => { if (e.key === 'Enter') searchGeo(); });
