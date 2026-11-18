@@ -1,156 +1,241 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101827">
-  <meta name="description" content="Facili-ta — ferramentas úteis em um só lugar.">
-  <title>Facili-ta | Ferramentas úteis</title>
-  <style>
-    :root{--bg:#0b1220;--panel:#111c2e;--panel2:#16243a;--text:#edf3ff;--muted:#9aabc4;--line:#263852;--blue:#4f8cff;--cyan:#39c6d8;--green:#35c98a;--red:#ff6b78}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#142743 0,#0b1220 52%);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
-    .wrap{max-width:1120px;margin:auto;padding:34px 20px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}
-    .brand{display:flex;align-items:center;gap:13px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-weight:900;font-size:23px;color:white;box-shadow:0 8px 30px #2875d955}
-    h1{font-size:27px;line-height:1.1;margin:0;letter-spacing:-.7px}.tag{color:var(--muted);font-size:13px;margin-top:4px}
-    .status{border:1px solid var(--line);border-radius:30px;padding:8px 12px;color:var(--muted);font-size:12px;white-space:nowrap}.status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px}
-    .intro{margin:0 0 22px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
-    .card{background:linear-gradient(180deg,#142238ed,#101b2ded);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 14px 40px #0002;min-width:0}
-    .cardhead{display:flex;align-items:center;gap:12px;margin-bottom:16px}.ico{width:42px;height:42px;border-radius:13px;background:#203a5e;color:#8fc1ff;display:grid;place-items:center;font-size:21px}
-    h2{font-size:17px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}
-    label{display:block;color:#c5d2e6;font-size:13px;margin:12px 0 6px}input,select{width:100%;background:#0b1627;border:1px solid #2a3d59;border-radius:10px;padding:12px 13px;color:var(--text);font:inherit;outline:none}
-    input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4f8cff20}.row{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:end}
-    button{border:0;border-radius:10px;padding:12px 17px;background:linear-gradient(135deg,var(--blue),#3972e8);color:white;font-weight:700;font:inherit;cursor:pointer;white-space:nowrap}
-    button:hover{filter:brightness(1.1)}button:disabled{opacity:.55;cursor:wait}.result{margin-top:14px;border:1px solid var(--line);background:#0b1627;border-radius:11px;padding:13px;color:#dce8fa;min-height:48px;overflow-wrap:anywhere}
-    .muted{color:var(--muted)}.big{font-size:25px;font-weight:800;letter-spacing:-.5px}.small{font-size:12px;color:var(--muted)}.error{color:#ff9aa3}.success{color:#7ce2b4}
-    .result:empty{display:none}.result table{width:100%;border-collapse:collapse;font-size:13px}.result td{padding:5px 3px;border-bottom:1px solid #23344c}.result td:last-child{text-align:right;font-weight:650}
-    .footer{color:#7386a2;text-align:center;font-size:12px;margin-top:28px}.wide{grid-column:1/-1}
-    @media(max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding:22px 14px 40px}.card{padding:18px}.top{align-items:flex-start}.status{font-size:11px}}
-    @media(max-width:420px){.row{grid-template-columns:1fr}.row button{width:100%}.status{display:none}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Facili-ta | Central de ferramentas</title>
+<style>
+:root{--bg:#0b1220;--panel:#111c2e;--text:#edf3ff;--muted:#9aabc4;--line:#263852;--blue:#4f8cff;--green:#35c98a;--red:#ff7784}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#172b48,#0b1220 60%);color:var(--text);font:15px/1.5 system-ui,Arial,sans-serif;min-height:100vh}
+.wrap{max-width:1150px;margin:auto;padding:28px 18px 55px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#4f8cff,#39c6d8);display:grid;place-items:center;font-size:24px;font-weight:900}
+h1{font-size:27px;margin:0;line-height:1.1}
+.tag,.muted,.small{color:var(--muted)}
+.tag{font-size:13px}
+.status{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:30px;padding:7px 11px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:#111c2eee;border:1px solid var(--line);border-radius:17px;padding:20px;min-width:0;box-shadow:0 12px 35px #0002}
+.card h2{font-size:17px;margin:0}
+.head{display:flex;gap:11px;align-items:center;margin-bottom:15px}
+.ico{width:41px;height:41px;border-radius:12px;background:#203a5e;display:grid;place-items:center;font-size:21px}
+.desc{font-size:12px;color:var(--muted)}
+label{display:block;font-size:13px;color:#c5d2e6;margin:11px 0 6px}
+input,select{width:100%;background:#0b1627;border:1px solid #2a3d59;border-radius:10px;padding:11px 12px;color:var(--text);font:inherit;min-width:0}
+input:focus,select:focus{outline:2px solid #4f8cff66}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px}
+button{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(135deg,#4f8cff,#3972e8);color:white;font:inherit;font-weight:700;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+.result{margin-top:13px;padding:12px;border:1px solid var(--line);background:#0b1627;border-radius:10px;overflow-wrap:anywhere}
+.result:empty{display:none}
+.result table{width:100%;border-collapse:collapse;font-size:13px}
+.result td{padding:5px 3px;border-bottom:1px solid #263852}
+.result td:last-child{text-align:right}
+.big{font-size:25px;font-weight:800}
+.small{font-size:12px}
+.error{color:#ff9aa3}.success{color:#7ce2b4}
+.wide{grid-column:1/-1}
+.results-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.item{display:flex;gap:10px;padding:10px;background:#111f33;border:1px solid #263852;border-radius:10px;min-width:0}
+.item img{width:72px;height:105px;object-fit:cover;border-radius:6px;background:#263852;flex-shrink:0}
+.item h3{font-size:14px;margin:0 0 5px}
+.item p{font-size:12px;color:var(--muted);margin:4px 0}
+.item a{color:#8fc1ff;font-size:12px}
+#qrcode{background:white;padding:12px;display:inline-block;border-radius:8px;margin-top:12px}
+footer{text-align:center;color:#7386a2;font-size:12px;margin-top:25px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.results-list{grid-template-columns:1fr}}
+@media(max-width:420px){.row{grid-template-columns:1fr}.row button{width:100%}.status{display:none}}
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <header class="top">
-      <div class="brand"><div class="logo">F</div><div><h1>Facili-ta</h1><div class="tag">Ferramentas úteis em um só lugar</div></div></div>
-      <div class="status"><i></i> Serviços conectados</div>
-    </header>
-    <p class="intro">Escolha uma ferramenta, informe os dados e clique em consultar.</p>
+<main class="wrap">
+<header>
+ <div class="brand"><div class="logo">F</div><div><h1>Facili-ta</h1><div class="tag">Sua central de ferramentas úteis</div></div></div>
+ <div class="status">● Serviços conectados</div>
+</header>
 
-    <section class="grid">
-      <article class="card">
-        <div class="cardhead"><div class="ico">📈</div><div><h2>Cotação de ações</h2><div class="sub">Consulte o último preço disponível</div></div></div>
-        <label for="symbol">Código da ação</label>
-        <div class="row"><input id="symbol" value="AAPL" placeholder="Ex.: AAPL, MSFT, PETR4"><button id="stockBtn" onclick="getStock()">Consultar</button></div>
-        <div class="result" id="stockResult" aria-live="polite"></div>
-      </article>
+<section class="grid">
 
-      <article class="card">
-        <div class="cardhead"><div class="ico">💱</div><div><h2>Conversor de moedas</h2><div class="sub">Taxas de câmbio por moeda-base</div></div></div>
-        <label for="base">Moeda de origem</label>
-        <div class="row"><select id="base"><option>USD</option><option>BRL</option><option>PYG</option><option>EUR</option><option>ARS</option><option>GBP</option></select><button id="ratesBtn" onclick="getRates()">Consultar taxas</button></div>
-        <div class="result" id="ratesResult" aria-live="polite"></div>
-      </article>
+<article class="card">
+ <div class="head"><div class="ico">📈</div><div><h2>Cotação de ações</h2><div class="desc">Último preço disponível</div></div></div>
+ <label for="symbol">Código da ação</label>
+ <div class="row"><input id="symbol" value="AAPL" placeholder="AAPL, MSFT, PETR4"><button onclick="stock()">Consultar</button></div>
+ <div class="result" id="stockResult"></div>
+</article>
 
-      <article class="card">
-        <div class="cardhead"><div class="ico">📱</div><div><h2>Validador de telefone</h2><div class="sub">Verifica formato e país do número</div></div></div>
-        <label for="phone">Número de telefone</label>
-        <input id="phone" placeholder="Ex.: +595 981 123456">
-        <label for="country">País (para números sem código internacional)</label>
-        <select id="country"><option value="PY">Paraguai</option><option value="BR">Brasil</option><option value="US">Estados Unidos</option><option value="AR">Argentina</option></select>
-        <button style="margin-top:12px;width:100%" id="phoneBtn" onclick="checkPhone()">Validar número</button>
-        <div class="result" id="phoneResult" aria-live="polite"></div>
-      </article>
+<article class="card">
+ <div class="head"><div class="ico">💱</div><div><h2>Conversor de moedas</h2><div class="desc">Taxas de câmbio</div></div></div>
+ <label for="base">Moeda de origem</label>
+ <div class="row"><select id="base"><option>USD</option><option>BRL</option><option>PYG</option><option>EUR</option><option>ARS</option><option>GBP</option></select><button onclick="rates()">Consultar</button></div>
+ <div class="result" id="ratesResult"></div>
+</article>
 
-      <article class="card">
-        <div class="cardhead"><div class="ico">📍</div><div><h2>Localizar endereço</h2><div class="sub">Busca endereço, cidade ou ponto de interesse</div></div></div>
-        <label for="place">Local para pesquisar</label>
-        <div class="row"><input id="place" placeholder="Ex.: Ciudad del Este, Paraguay"><button id="geoBtn" onclick="getGeo()">Localizar</button></div>
-        <div class="result" id="geoResult" aria-live="polite"></div>
-      </article>
+<article class="card">
+ <div class="head"><div class="ico">📱</div><div><h2>Validador de telefone</h2><div class="desc">Verifica o formato do número</div></div></div>
+ <label for="phone">Telefone</label><input id="phone" placeholder="+595 981 123456">
+ <label for="country">País para número sem código internacional</label>
+ <select id="country"><option value="PY">Paraguai</option><option value="BR">Brasil</option><option value="US">Estados Unidos</option><option value="AR">Argentina</option></select>
+ <button style="width:100%;margin-top:12px" onclick="phoneCheck()">Validar</button>
+ <div class="result" id="phoneResult"></div>
+</article>
 
-      <article class="card wide">
-        <div class="cardhead"><div class="ico">📄</div><div><h2>Salvar página em PDF</h2><div class="sub">Abra uma página e use a opção de impressão do navegador</div></div></div>
-        <label for="pdfUrl">Endereço da página (URL)</label>
-        <div class="row"><input id="pdfUrl" type="url" placeholder="https://exemplo.com"><button onclick="openPdfPage()">Abrir página</button></div>
-        <p class="small">Na página aberta, pressione Ctrl+P (ou ⌘+P no Mac) e escolha “Salvar como PDF”. Algumas páginas bloqueiam a impressão ou exigem login.</p>
-      </article>
-    </section>
-    <footer class="footer">Facili-ta · As informações de mercado e câmbio podem ter atraso e devem ser conferidas antes de decisões financeiras.</footer>
-  </main>
+<article class="card">
+ <div class="head"><div class="ico">📍</div><div><h2>Localizar endereço</h2><div class="desc">Cidade, endereço ou ponto de interesse</div></div></div>
+ <label for="place">Local</label>
+ <div class="row"><input id="place" placeholder="Ciudad del Este, Paraguay"><button onclick="geocode()">Localizar</button></div>
+ <div class="result" id="geoResult"></div>
+</article>
 
+<article class="card">
+ <div class="head"><div class="ico">🌤️</div><div><h2>Previsão do tempo</h2><div class="desc">Clima atual e previsão de cinco dias</div></div></div>
+ <label for="weatherPlace">Cidade</label>
+ <div class="row"><input id="weatherPlace" placeholder="Asunción, Paraguay"><button onclick="weather()">Consultar</button></div>
+ <div class="result" id="weatherResult"></div>
+</article>
+
+<article class="card">
+ <div class="head"><div class="ico">▦</div><div><h2>Gerador de QR Code</h2><div class="desc">Crie QR Code para texto, link ou Wi-Fi</div></div></div>
+ <label for="qrText">Texto ou endereço</label>
+ <input id="qrText" placeholder="https://seusite.com">
+ <button style="width:100%;margin-top:12px" onclick="makeQR()">Gerar QR Code</button>
+ <div class="result" id="qrResult"><div id="qrcode"></div></div>
+</article>
+
+<article class="card">
+ <div class="head"><div class="ico">📖</div><div><h2>Dicionário inglês</h2><div class="desc">Significado e exemplos de palavras em inglês</div></div></div>
+ <label for="word">Palavra em inglês</label>
+ <div class="row"><input id="word" placeholder="Ex.: beautiful"><button onclick="dictionary()">Pesquisar</button></div>
+ <div class="result" id="dictionaryResult"></div>
+</article>
+
+<article class="card">
+ <div class="head"><div class="ico">📚</div><div><h2>Pesquisa de livros</h2><div class="desc">Pesquise títulos e autores</div></div></div>
+ <label for="bookQuery">Título ou autor</label>
+ <div class="row"><input id="bookQuery" placeholder="Harry Potter, Machado de Assis"><button onclick="books()">Pesquisar</button></div>
+ <div class="result" id="booksResult"></div>
+</article>
+
+<article class="card">
+ <div class="head"><div class="ico">🎬</div><div><h2>Filmes e séries</h2><div class="desc">Pesquise séries e programas de TV</div></div></div>
+ <label for="showQuery">Nome do filme ou série</label>
+ <div class="row"><input id="showQuery" placeholder="Breaking Bad"><button onclick="shows()">Pesquisar</button></div>
+ <div class="result" id="showsResult"></div>
+</article>
+
+<article class="card wide">
+ <div class="head"><div class="ico">📄</div><div><h2>Salvar página em PDF</h2><div class="desc">Abra uma página e use a impressão do navegador</div></div></div>
+ <label for="pdfUrl">Endereço da página</label>
+ <div class="row"><input id="pdfUrl" placeholder="https://exemplo.com"><button onclick="openPage()">Abrir página</button></div>
+ <p class="small">Na página aberta, pressione Ctrl+P e escolha “Salvar como PDF”.</p>
+</article>
+
+</section>
+<footer>Facili-ta · Algumas informações podem ter atraso. Consulte as fontes antes de tomar decisões importantes.</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // API já configurada para o seu Cloudflare Worker.
-  const API_BASE = "https://facilita-api.dibairener.workers.dev";
+const API_BASE = "https://facilita-api.dibairener.workers.dev";
+const $ = id => document.getElementById(id);
 
-  const el = id => document.getElementById(id);
-  function show(id, html, cls="") { el(id).innerHTML = html; if(cls) el(id).className = "result " + cls; }
-  function busy(button, state, label="Consultando...") {
-    const b=el(button); if(state){b.dataset.old=b.textContent;b.textContent=label;b.disabled=true;}
-    else{b.textContent=b.dataset.old||"Consultar";b.disabled=false;}
-  }
-  async function api(path) {
-    const response = await fetch(API_BASE + path);
-    const data = await response.json().catch(()=>({error:"Resposta inválida do servidor."}));
-    if(!response.ok || data.error) throw new Error(data.error || "Não foi possível concluir a consulta.");
-    return data;
-  }
-  function money(value,currency="USD") {
-    try{return new Intl.NumberFormat("pt-BR",{style:"currency",currency}).format(value);}
-    catch{return Number(value).toFixed(2)+" "+currency;}
-  }
-  async function getStock(){
-    const symbol=el("symbol").value.trim().toUpperCase();
-    if(!symbol){show("stockResult",'<span class="error">Informe o código da ação.</span>');return;}
-    busy("stockBtn",true); show("stockResult","Buscando cotação...");
-    try{
-      const d=await api("/api/stock?symbol="+encodeURIComponent(symbol));
-      show("stockResult",`<div class="small">${d.symbol} · ${d.date ? new Date(d.date).toLocaleString("pt-BR") : "Último registro"}</div><div class="big">${money(d.close,d.currency||"USD")}</div><table><tr><td>Abertura</td><td>${money(d.open,d.currency||"USD")}</td></tr><tr><td>Máxima</td><td>${money(d.high,d.currency||"USD")}</td></tr><tr><td>Mínima</td><td>${money(d.low,d.currency||"USD")}</td></tr><tr><td>Volume</td><td>${Number(d.volume||0).toLocaleString("pt-BR")}</td></tr></table><div class="small">Dados fornecidos pelo Yahoo Finance; podem ter atraso.</div>`);
-    }catch(e){show("stockResult",'<span class="error">'+escapeHtml(e.message)+'</span>');}
-    finally{busy("stockBtn",false);}
-  }
-  async function getRates(){
-    const base=el("base").value; busy("ratesBtn",true,"Carregando...");
-    show("ratesResult","Consultando taxas...");
-    try{
-      const d=await api("/api/rates?base="+encodeURIComponent(base));
-      const keys=["BRL","PYG","USD","EUR","ARS","GBP"];
-      const rows=keys.filter(k=>d.rates && d.rates[k]!=null).map(k=>`<tr><td>1 ${base} = ${k}</td><td>${Number(d.rates[k]).toLocaleString("pt-BR",{maximumFractionDigits:4})}</td></tr>`).join("");
-      show("ratesResult",`<div class="small">Base: ${d.base||base} · Data: ${d.date||"disponível na fonte"}</div><table>${rows}</table><div class="small">Fonte: ExchangeRate-API (taxas indicativas).</div>`);
-    }catch(e){show("ratesResult",'<span class="error">'+escapeHtml(e.message)+'</span>');}
-    finally{busy("ratesBtn",false);}
-  }
-  async function getGeo(){
-    const q=el("place").value.trim(); if(!q){show("geoResult",'<span class="error">Digite um endereço ou local.</span>');return;}
-    busy("geoBtn",true,"Buscando..."); show("geoResult","Procurando endereço...");
-    try{
-      const d=await api("/api/geocode?q="+encodeURIComponent(q)); const r=d.result;
-      if(!r) throw new Error("Nenhum resultado encontrado.");
-      const lat=Number(r.lat),lon=Number(r.lon);
-      show("geoResult",`<strong>${escapeHtml(r.display_name||"Local encontrado")}</strong><table><tr><td>Latitude</td><td>${lat}</td></tr><tr><td>Longitude</td><td>${lon}</td></tr><tr><td>País</td><td>${escapeHtml(r.country||"—")}</td></tr></table><a target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${encodeURIComponent(lat)}&mlon=${encodeURIComponent(lon)}#map=15/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}">Ver no mapa</a><div class="small">Mapa e dados © OpenStreetMap contributors.</div>`);
-    }catch(e){show("geoResult",'<span class="error">'+escapeHtml(e.message)+'</span>');}
-    finally{busy("geoBtn",false);}
-  }
-  async function checkPhone(){
-    const phone=el("phone").value.trim(); if(!phone){show("phoneResult",'<span class="error">Informe um número de telefone.</span>');return;}
-    busy("phoneBtn",true,"Validando...");
-    try{
-      const mod=await import("https://cdn.jsdelivr.net/npm/libphonenumber-js@1.11.20/+esm");
-      const parsed=mod.parsePhoneNumber(phone,el("country").value);
-      if(!parsed){show("phoneResult",'<span class="error">Não foi possível interpretar o número.</span>');return;}
-      show("phoneResult",parsed.isValid()?`<span class="success">Número com formato válido.</span><table><tr><td>Formato internacional</td><td>${escapeHtml(parsed.formatInternational())}</td></tr><tr><td>País</td><td>${escapeHtml(parsed.country||"Não identificado")}</td></tr><tr><td>Tipo</td><td>${escapeHtml(parsed.getType()||"Não identificado")}</td></tr></table><div class="small">A validação verifica o formato; não confirma se a linha está ativa.</div>`:'<span class="error">Número inválido ou com formato incorreto.</span>');
-    }catch(e){show("phoneResult",'<span class="error">'+escapeHtml(e.message||"Falha ao validar número.")+'</span>');}
-    finally{busy("phoneBtn",false);}
-  }
-  function openPdfPage(){
-    let url=el("pdfUrl").value.trim(); if(!url){show("pdfResult","");return;}
-    if(!/^https?:\/\//i.test(url)) url="https://"+url;
-    try{const parsed=new URL(url); if(!["http:","https:"].includes(parsed.protocol)) throw new Error(); window.open(parsed.href,"_blank","noopener");}
-    catch{alert("Informe uma URL válida.");}
-  }
-  function escapeHtml(value){
-    return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  }
-  document.addEventListener("keydown",e=>{if(e.key==="Enter"){const id=e.target.id;if(id==="symbol")getStock();if(id==="place")getGeo();}});
+function safe(value){
+ return String(value ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function show(id,html){$(id).innerHTML=html;}
+async function api(path){
+ const response=await fetch(API_BASE+path);
+ const data=await response.json().catch(()=>({error:"Resposta inválida do servidor."}));
+ if(!response.ok || data.error) throw new Error(data.error||"Erro na consulta.");
+ return data;
+}
+async function run(id,fn){
+ show(id,"Consultando...");
+ try{await fn();}catch(e){show(id,'<span class="error">'+safe(e.message)+'</span>');}
+}
+function money(v,c="USD"){
+ if(v==null)return "—";
+ try{return new Intl.NumberFormat("pt-BR",{style:"currency",currency:c}).format(v);}
+ catch{return Number(v).toFixed(2)+" "+c;}
+}
+
+function stock(){return run("stockResult",async()=>{
+ const s=$("symbol").value.trim().toUpperCase();if(!s)throw Error("Digite o código da ação.");
+ const d=await api("/api/stock?symbol="+encodeURIComponent(s));
+ show("stockResult",`<div class="small">${safe(d.symbol)} · ${d.date?new Date(d.date).toLocaleString("pt-BR"):""}</div><div class="big">${money(d.close,d.currency)}</div><table><tr><td>Abertura</td><td>${money(d.open,d.currency)}</td></tr><tr><td>Máxima</td><td>${money(d.high,d.currency)}</td></tr><tr><td>Mínima</td><td>${money(d.low,d.currency)}</td></tr><tr><td>Volume</td><td>${Number(d.volume||0).toLocaleString("pt-BR")}</td></tr></table><p class="small">Fonte não oficial: Yahoo Finance. Pode haver atraso ou indisponibilidade.</p>`);
+});}
+function rates(){return run("ratesResult",async()=>{
+ const b=$("base").value,d=await api("/api/rates?base="+b);
+ const codes=["BRL","PYG","USD","EUR","ARS","GBP"];
+ const rows=codes.filter(c=>d.rates[c]!=null).map(c=>`<tr><td>1 ${b} = ${c}</td><td>${Number(d.rates[c]).toLocaleString("pt-BR",{maximumFractionDigits:4})}</td></tr>`).join("");
+ show("ratesResult",`<div class="small">${safe(d.base)} · ${safe(d.date)}</div><table>${rows}</table>`);
+});}
+function geocode(){return run("geoResult",async()=>{
+ const q=$("place").value.trim();if(!q)throw Error("Digite um local.");
+ const d=await api("/api/geocode?q="+encodeURIComponent(q)),r=d.result;
+ show("geoResult",`<b>${safe(r.display_name)}</b><table><tr><td>Latitude</td><td>${safe(r.lat)}</td></tr><tr><td>Longitude</td><td>${safe(r.lon)}</td></tr><tr><td>País</td><td>${safe(r.country)}</td></tr></table><a target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${encodeURIComponent(r.lat)}&mlon=${encodeURIComponent(r.lon)}">Ver no mapa</a><p class="small">Dados © OpenStreetMap contributors.</p>`);
+});}
+function weatherCode(code){
+ const map={0:"Céu limpo",1:"Predominantemente limpo",2:"Parcialmente nublado",3:"Nublado",45:"Nevoeiro",48:"Nevoeiro com geada",51:"Garoa leve",53:"Garoa moderada",55:"Garoa intensa",61:"Chuva leve",63:"Chuva moderada",65:"Chuva forte",71:"Neve leve",73:"Neve moderada",75:"Neve forte",80:"Pancadas de chuva",81:"Pancadas moderadas",82:"Pancadas fortes",95:"Trovoadas",96:"Trovoadas com granizo",99:"Trovoadas fortes"};
+ return map[code]||"Condição variável";
+}
+function weather(){return run("weatherResult",async()=>{
+ const q=$("weatherPlace").value.trim();if(!q)throw Error("Digite uma cidade.");
+ const d=await api("/api/weather?q="+encodeURIComponent(q)),c=d.current,day=d.daily;
+ let rows=day.time.map((date,i)=>`<tr><td>${new Date(date+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"2-digit"})}</td><td>${Number(day.temperature_2m_min[i]).toFixed(0)}° / ${Number(day.temperature_2m_max[i]).toFixed(0)}°</td><td>${day.precipitation_probability_max?.[i]??"—"}%</td></tr>`).join("");
+ show("weatherResult",`<b>${safe(d.location)}</b><div class="big">${Number(c.temperature_2m).toFixed(1)} °C</div><b>${weatherCode(c.weather_code)}</b><table><tr><td>Sensação</td><td>${c.apparent_temperature} °C</td></tr><tr><td>Umidade</td><td>${c.relative_humidity_2m}%</td></tr><tr><td>Vento</td><td>${c.wind_speed_10m} km/h</td></tr></table><p class="small">Próximos dias</p><table>${rows}</table><p class="small">Fonte: Open-Meteo · Atualizado: ${safe(c.time)} · CC BY 4.0</p>`);
+});}
+function makeQR(){
+ const value=$("qrText").value.trim();if(!value){show("qrResult",'<span class="error">Digite um texto ou link.</span>');return;}
+ if(typeof QRCode==="undefined"){show("qrResult",'<span class="error">Não foi possível carregar o gerador de QR Code. Atualize a página.</span>');return;}
+ $("qrResult").innerHTML='<div id="qrcode"></div><p class="small">Clique com o botão direito na imagem para salvar.</p>';
+ new QRCode($("qrcode"),{text:value,width:190,height:190,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+}
+function dictionary(){return run("dictionaryResult",async()=>{
+ const w=$("word").value.trim();if(!w)throw Error("Digite uma palavra em inglês.");
+ const d=await api("/api/dictionary?word="+encodeURIComponent(w));
+ let html=`<div class="big">${safe(d.word)}</div><p>${safe(d.phonetic)}</p>`;
+ if(d.audio)html+=`<audio controls src="${safe(d.audio)}"></audio>`;
+ for(const m of d.meanings){html+=`<h3>${safe(m.partOfSpeech)}</h3>`;for(const def of m.definitions){html+=`<p>${safe(def.definition)}</p>${def.example?`<p class="small">Exemplo: ${safe(def.example)}</p>`:""}`;}}
+ show("dictionaryResult",html);
+});}
+function books(){return run("booksResult",async()=>{
+ const q=$("bookQuery").value.trim();if(!q)throw Error("Digite um título ou autor.");
+ const d=await api("/api/books?q="+encodeURIComponent(q));
+ if(!d.books.length)throw Error("Nenhum livro encontrado.");
+ const cards=d.books.map(b=>`<div class="item">${b.cover?`<img loading="lazy" src="${safe(b.cover)}" alt="">`:""}<div><h3>${safe(b.title)}</h3><p>${safe((b.authors||[]).join(", ")||"Autor não informado")}</p><p>${safe(b.year||"Ano não informado")} · ${safe(b.editions)} edições</p>${b.url?`<a target="_blank" rel="noopener" href="${safe(b.url)}">Ver na Open Library</a>`:""}</div></div>`).join("");
+ show("booksResult",`<p class="small">${Number(d.total).toLocaleString("pt-BR")} resultados encontrados</p><div class="results-list">${cards}</div>`);
+});}
+function shows(){return run("showsResult",async()=>{
+ const q=$("showQuery").value.trim();if(!q)throw Error("Digite o nome de um filme ou série.");
+ const d=await api("/api/shows?q="+encodeURIComponent(q));
+ if(!d.shows.length)throw Error("Nenhum resultado encontrado.");
+ const cards=d.shows.map(s=>`<div class="item">${s.image?`<img loading="lazy" src="${safe(s.image)}" alt="">`:""}<div><h3>${safe(s.name)}</h3><p>${safe(s.type)} · ${safe(s.language||"Idioma não informado")}</p><p>${safe(s.premiered||"Estreia não informada")} · ${safe(s.status)}</p><p>Nota: ${s.rating??"Sem nota"} · ${safe((s.genres||[]).join(", "))}</p>${s.url?`<a target="_blank" rel="noopener" href="${safe(s.url)}">Ver detalhes</a>`:""}</div></div>`).join("");
+ show("showsResult",`<div class="results-list">${cards}</div><p class="small">Dados fornecidos pelo TVmaze.</p>`);
+});}
+async function phoneCheck(){
+ show("phoneResult","Validando...");
+ try{
+  const lib=await import("https://cdn.jsdelivr.net/npm/libphonenumber-js@1.11.20/+esm");
+  const parsed=lib.parsePhoneNumber($("phone").value.trim(),$("country").value);
+  if(!parsed||!parsed.isValid())throw Error("Número inválido ou formato incorreto.");
+  show("phoneResult",`<span class="success">Formato válido</span><table><tr><td>Internacional</td><td>${safe(parsed.formatInternational())}</td></tr><tr><td>País</td><td>${safe(parsed.country||"Não identificado")}</td></tr><tr><td>Tipo</td><td>${safe(parsed.getType()||"Não identificado")}</td></tr></table><p class="small">Isso não confirma se a linha está ativa.</p>`);
+ }catch(e){show("phoneResult",'<span class="error">'+safe(e.message)+'</span>');}
+}
+function openPage(){
+ let url=$("pdfUrl").value.trim();if(!url){alert("Digite o endereço da página.");return;}
+ if(!/^https?:\/\//i.test(url))url="https://"+url;
+ try{const u=new URL(url);if(!["http:","https:"].includes(u.protocol))throw Error();window.open(u.href,"_blank","noopener");}
+ catch{alert("Endereço inválido.");}
+}
+document.addEventListener("keydown",e=>{
+ if(e.key!=="Enter")return;
+ const actions={symbol:stock,place:geocode,weatherPlace:weather,word:dictionary,bookQuery:books,showQuery:shows};
+ if(actions[e.target.id])actions[e.target.id]();
+});
 </script>
 </body>
 </html>
